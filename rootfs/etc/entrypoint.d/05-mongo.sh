@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -eo pipefail
 
 declare -x ROCKETCHAT_MONGO_TIMEOUT
@@ -21,3 +21,5 @@ declare -x ROCKETCHAT_MONGO_PASSWORD
 
 declare -x ROCKETCHAT_MONGO_DATABASE
 [[ -z "${ROCKETCHAT_MONGO_DATABASE}" ]] && ROCKETCHAT_MONGO_DATABASE="rocketchat"
+
+true
