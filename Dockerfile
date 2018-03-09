@@ -31,7 +31,6 @@ RUN apt-get update -y && \
     rocketchat && \
   apt-get install -y \
     nodejs \
-    npm \
     build-essential \
     git && \
   rm -rf \
