@@ -11,6 +11,8 @@ WORKDIR /srv/www
 ENV ROCKETCHAT_VERSION 0.62.1
 ENV ROCKETCHAT_TARBALL https://cdn-download.rocket.chat/build/rocket.chat-${ROCKETCHAT_VERSION}.tgz
 
+RUN apt-get update -y && apt-get install -y apt-transport-https && rm -rf /var/lib/apt/lists/*
+
 RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
   echo "deb https://deb.nodesource.com/node_8.x xenial main" | tee /etc/apt/sources.list.d/node.list
 
