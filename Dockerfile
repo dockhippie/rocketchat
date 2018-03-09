@@ -1,4 +1,4 @@
-FROM webhippie/ubuntu:latest
+FROM webhippie/ubuntu:xenial
 MAINTAINER Thomas Boerger <thomas@webhippie.de>
 
 VOLUME ["/var/lib/rocketchat"]
