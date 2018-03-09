@@ -9,7 +9,7 @@ EXPOSE 3000
 WORKDIR /srv/www
 
 ENV ROCKETCHAT_VERSION 0.57.3
-ENV ROCKETCHAT_TARBALL https://rocket.chat/releases/${ROCKETCHAT_VERSION}/download
+ENV ROCKETCHAT_TARBALL https://cdn-download.rocket.chat/build/rocket.chat-${ROCKETCHAT_VERSION}.tgz
 
 RUN apt-get update -y && \
   mkdir -p \
