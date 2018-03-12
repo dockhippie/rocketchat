@@ -11,11 +11,6 @@ WORKDIR /srv/www
 ENV ROCKETCHAT_VERSION 0.62.1
 ENV ROCKETCHAT_TARBALL https://cdn-download.rocket.chat/build/rocket.chat-${ROCKETCHAT_VERSION}.tgz
 
-RUN apt-get update -y && apt-get install -y apt-transport-https && rm -rf /var/lib/apt/lists/*
-
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo "deb https://deb.nodesource.com/node_8.x xenial main" | tee /etc/apt/sources.list.d/node.list
-
 RUN apt-get update -y && \
   mkdir -p \
     /srv/www && \
@@ -30,11 +25,15 @@ RUN apt-get update -y && \
     -M \
     rocketchat && \
   apt-get install -y \
-    nodejs \
+    python-minimal \
     build-essential \
     git && \
   rm -rf \
     /var/lib/apt/lists/*
+
+RUN curl -sLo /tmp/nodejs.deb https://deb.nodesource.com/node_8.x/pool/main/n/nodejs/nodejs_8.9.4-1nodesource1_amd64.deb && \
+  dpkg -i /tmp/nodejs.deb && \
+  rm /tmp/nodejs.deb
 
 RUN curl -sLo - ${ROCKETCHAT_TARBALL} | tar -xzf - --strip 0 -C /srv/www && \
   chown -R rocketchat:rocketchat /srv/www && \
