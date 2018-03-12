@@ -8,7 +8,7 @@ CMD ["/bin/s6-svscan", "/etc/s6"]
 EXPOSE 3000
 WORKDIR /srv/www
 
-ENV ROCKETCHAT_VERSION 0.62.1
+ENV ROCKETCHAT_VERSION 0.62.2
 ENV ROCKETCHAT_TARBALL https://cdn-download.rocket.chat/build/rocket.chat-${ROCKETCHAT_VERSION}.tgz
 
 RUN apt-get update -y && \
