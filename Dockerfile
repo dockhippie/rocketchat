@@ -25,13 +25,15 @@ RUN apt-get update -y && \
     -M \
     rocketchat && \
   apt-get install -y \
-    nodejs \
-    nodejs-legacy \
-    npm \
+    python-minimal \
     build-essential \
     git && \
   rm -rf \
     /var/lib/apt/lists/*
+
+RUN curl -sLo /tmp/nodejs.deb https://deb.nodesource.com/node_8.x/pool/main/n/nodejs/nodejs_8.9.4-1nodesource1_amd64.deb && \
+  dpkg -i /tmp/nodejs.deb && \
+  rm /tmp/nodejs.deb
 
 RUN curl -sLo - ${ROCKETCHAT_TARBALL} | tar -xzf - --strip 0 -C /srv/www && \
   chown -R rocketchat:rocketchat /srv/www && \
