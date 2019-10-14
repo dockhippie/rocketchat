@@ -1,0 +1,19 @@
+image: webhippie/rocketchat:1.3
+manifests:
+  -
+    image: webhippie/rocketchat:1.3-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  -
+    image: webhippie/rocketchat:1.3-arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8
+  -
+    image: webhippie/rocketchat:1.3-arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v6

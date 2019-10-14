@@ -1,0 +1,32 @@
+#!/bin/bash
+source /usr/bin/entrypoint
+
+if [ ! -d ${ROCKETCHAT_AVATARS_PATH} ]
+then
+  echo "> creating avatars directory"
+  mkdir -p ${ROCKETCHAT_AVATARS_PATH}
+fi
+
+if [[ ${ROCKETCHAT_SKIP_CHOWN} == "true" ]]
+then
+  echo "> skipping perm fix"
+else
+  echo "> fixing base perms"
+  find ${ROCKETCHAT_BASE_PATH} \( \! -user rocketchat -o \! -group rocketchat \) -print0 | xargs -r -0 chown rocketchat:rocketchat
+
+  if [[ ! ${ROCKETCHAT_AVATARS_PATH} =~ ^${ROCKETCHAT_BASE_PATH} ]]
+  then
+    echo "> fixing avatars perms"
+    find ${ROCKETCHAT_AVATARS_PATH} \( \! -user rocketchat -o \! -group rocketchat \) -print0 | xargs -r -0 chown rocketchat:rocketchat
+  fi
+fi
+
+echo "> waiting for mongodb"
+wait-for-it -t ${ROCKETCHAT_MONGO_TIMEOUT} ${ROCKETCHAT_MONGO_HOST}:${ROCKETCHAT_MONGO_PORT}
+
+if [[ $? -ne 0 && "${ROCKETCHAT_MONGO_TEST_FAIL}" == "true" ]]
+then
+  echo "> database didn't come up"
+  /bin/s6-svscanctl -t /etc/s6
+  exit 1
+fi

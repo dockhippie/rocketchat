@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ -f ./setup ]
+then
+  source ./setup
+fi
+
+if [ -f ./custom ]
+then
+  source ./custom
+fi
+
+if [ -d ./custom.d ]
+then
+  for FILE in $(find ./custom.d -type f -iname \*.sh | sort)
+  do
+    source ${FILE}
+  done
+fi
+
+export ROOT_URL="${ROCKETCHAT_ROOT_URL}"
+export PORT=3000
+export Accounts_AvatarStorePath="${ROCKETCHAT_AVATARS_PATH}"
+
+if [[ -n "${ROCKETCHAT_MONGO_USERNAME}" || -n "${ROCKETCHAT_MONGO_PASSWORD}" ]]
+then
+  export MONGO_URL="mongodb://${ROCKETCHAT_MONGO_USERNAME}:${ROCKETCHAT_MONGO_PASSWORD}@${ROCKETCHAT_MONGO_HOST}:${ROCKETCHAT_MONGO_PORT}/${ROCKETCHAT_MONGO_DATABASE}"
+else
+  export MONGO_URL="mongodb://${ROCKETCHAT_MONGO_HOST}:${ROCKETCHAT_MONGO_PORT}/${ROCKETCHAT_MONGO_DATABASE}"
+fi
+
+echo "> starting rocketchat service"
+exec su-exec rocketchat node /srv/www/bundle/main.js
