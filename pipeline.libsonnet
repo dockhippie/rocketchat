@@ -1,7 +1,7 @@
 local agent(arch='amd64') =
   if arch == 'amd64' then
     'amd64'
-  else if arch == 'arm32v6' then
+  else if arch == 'arm32v7' then
     'arm'
   else if arch == 'arm32v7' then
     'arm'
