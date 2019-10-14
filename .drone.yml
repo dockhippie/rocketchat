@@ -158,6 +158,480 @@ depends_on:
 
 ---
 kind: pipeline
+name: amd64-2.1
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.1
+    dockerfile: v2.1/Dockerfile.amd64
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 2.1-amd64
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.1
+    dockerfile: v2.1/Dockerfile.amd64
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 2.1-amd64
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: arm32v6-2.1
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.1
+    dockerfile: v2.1/Dockerfile.arm32v6
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 2.1-arm32v6
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.1
+    dockerfile: v2.1/Dockerfile.arm32v6
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 2.1-arm32v6
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: arm64v8-2.1
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.1
+    dockerfile: v2.1/Dockerfile.arm64v8
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 2.1-arm64v8
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.1
+    dockerfile: v2.1/Dockerfile.arm64v8
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 2.1-arm64v8
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: manifest-2.1
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: manifest
+  pull: always
+  image: plugins/manifest:1
+  settings:
+    ignore_missing: true
+    password:
+      from_secret: docker_password
+    spec: v2.1/manifest.tmpl
+    username:
+      from_secret: docker_username
+
+trigger:
+  ref:
+  - refs/heads/master
+
+depends_on:
+- amd64-2.1
+- arm32v6-2.1
+- arm64v8-2.1
+
+---
+kind: pipeline
+name: amd64-2.0
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.0
+    dockerfile: v2.0/Dockerfile.amd64
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 2.0-amd64
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.0
+    dockerfile: v2.0/Dockerfile.amd64
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 2.0-amd64
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: arm32v6-2.0
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.0
+    dockerfile: v2.0/Dockerfile.arm32v6
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 2.0-arm32v6
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.0
+    dockerfile: v2.0/Dockerfile.arm32v6
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 2.0-arm32v6
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: arm64v8-2.0
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.0
+    dockerfile: v2.0/Dockerfile.arm64v8
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 2.0-arm64v8
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v2.0
+    dockerfile: v2.0/Dockerfile.arm64v8
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 2.0-arm64v8
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: manifest-2.0
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: manifest
+  pull: always
+  image: plugins/manifest:1
+  settings:
+    ignore_missing: true
+    password:
+      from_secret: docker_password
+    spec: v2.0/manifest.tmpl
+    username:
+      from_secret: docker_username
+
+trigger:
+  ref:
+  - refs/heads/master
+
+depends_on:
+- amd64-2.0
+- arm32v6-2.0
+- arm64v8-2.0
+
+---
+kind: pipeline
+name: amd64-1.3
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v1.3
+    dockerfile: v1.3/Dockerfile.amd64
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 1.3-amd64
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v1.3
+    dockerfile: v1.3/Dockerfile.amd64
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 1.3-amd64
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: arm32v6-1.3
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v1.3
+    dockerfile: v1.3/Dockerfile.arm32v6
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 1.3-arm32v6
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v1.3
+    dockerfile: v1.3/Dockerfile.arm32v6
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 1.3-arm32v6
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: arm64v8-1.3
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: dryrun
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v1.3
+    dockerfile: v1.3/Dockerfile.arm64v8
+    dry_run: true
+    repo: webhippie/rocketchat
+    tags: 1.3-arm64v8
+  when:
+    event:
+    - pull_request
+
+- name: publish
+  pull: always
+  image: plugins/docker:latest
+  settings:
+    context: v1.3
+    dockerfile: v1.3/Dockerfile.arm64v8
+    password:
+      from_secret: docker_password
+    repo: webhippie/rocketchat
+    tags: 1.3-arm64v8
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+
+trigger:
+  ref:
+  - refs/heads/master
+  - refs/pull/**
+
+---
+kind: pipeline
+name: manifest-1.3
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: manifest
+  pull: always
+  image: plugins/manifest:1
+  settings:
+    ignore_missing: true
+    password:
+      from_secret: docker_password
+    spec: v1.3/manifest.tmpl
+    username:
+      from_secret: docker_username
+
+trigger:
+  ref:
+  - refs/heads/master
+
+depends_on:
+- amd64-1.3
+- arm32v6-1.3
+- arm64v8-1.3
+
+---
+kind: pipeline
 name: amd64-1.2
 
 platform:
@@ -968,6 +1442,9 @@ trigger:
 
 depends_on:
 - manifest-latest
+- manifest-2.1
+- manifest-2.0
+- manifest-1.3
 - manifest-1.2
 - manifest-1.1
 - manifest-1.0
