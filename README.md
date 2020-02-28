@@ -9,6 +9,7 @@ These are docker images for [Rocket.Chat](https://rocket.chat) running on an [Ub
 ## Versions
 
 * [latest](./latest) available as `webhippie/rocketchat:latest`
+* [3.0](./v3.0) available as `webhippie/rocketchat:3.0`
 * [2.4](./v2.4) available as `webhippie/rocketchat:2.4`
 * [2.3](./v2.3) available as `webhippie/rocketchat:2.3`
 * [2.2](./v2.2) available as `webhippie/rocketchat:2.2`
