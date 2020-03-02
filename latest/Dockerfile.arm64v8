@@ -22,7 +22,7 @@ RUN apt-get update -y && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo "deb https://deb.nodesource.com/node_8.x bionic main" | tee /etc/apt/sources.list.d/node.list && \
+  echo "deb https://deb.nodesource.com/node_12.x bionic main" | tee /etc/apt/sources.list.d/node.list && \
   apt-get update -y && \
   apt-get install -y nodejs && \
   apt-get clean && \
