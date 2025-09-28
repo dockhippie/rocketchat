@@ -1,4 +1,4 @@
-FROM webhippie/ubuntu:21.04-arm64v8
+FROM webhippie/ubuntu:21.04-arm64v8@sha256:b964341c14466ad8e183b23805da35ddc82b26fee3d86e7149252944892a52de
 
 LABEL maintainer="Thomas Boerger <thomas@webhippie.de>" \
   org.label-schema.name="Rocket.Chat" \
